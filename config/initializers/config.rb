@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+# This file *must* be named "config.rb". It is loaded manually by the config
+# gem before everything else, so you can use the Settings constant even in
+# config/application.rb and config/environments/*.
 Config.setup do |config|
   # Name of the constant exposing loaded settings
   config.const_name = 'Settings'
