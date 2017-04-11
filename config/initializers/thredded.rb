@@ -74,7 +74,7 @@ Thredded.messageboards_order = :position
 
 # ==> View Configuration
 # Set the layout for rendering the thredded views.
-Thredded.layout = 'thredded/application'
+Thredded.layout = 'application'
 
 # ==> URLs
 # How Thredded generates URL slugs from text.
@@ -155,3 +155,13 @@ Thredded.layout = 'thredded/application'
 #
 # add in (must install separate gem (under development) as well):
 # Thredded.notifiers = [Thredded::EmailNotifier.new, Thredded::PushoverNotifier.new(ENV['PUSHOVER_APP_ID'])]
+# frozen_string_literal: true
+
+Rails.application.config.to_prepare do
+  Thredded::ApplicationController.module_eval do
+    rescue_from Thredded::Errors::LoginRequired do |exception|
+      flash.now[:notice] = exception.message
+      render template: 'devise/sessions/new', status: :forbidden
+    end
+  end
+end
