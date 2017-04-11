@@ -64,13 +64,13 @@ Thredded.messageboards_order = :position
 
 # ==> Email Configuration
 # Email "From:" field will use the following
-# Thredded.email_from = 'no-reply@example.com'
+Thredded.email_from = %("#{I18n.t('brand.name')}" <#{Settings.email_sender}>)
 
 # Emails going out will prefix the "Subject:" with the following string
 # Thredded.email_outgoing_prefix = '[My Forum] '
 #
 # The parent mailer for all Thredded mailers
-# Thredded.parent_mailer = 'ActionMailer::Base'
+Thredded.parent_mailer = 'ApplicationMailer'
 
 # ==> View Configuration
 # Set the layout for rendering the thredded views.
