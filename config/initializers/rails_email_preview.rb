@@ -1,24 +1,19 @@
 require 'rails_email_preview'
 
 #= REP hooks and config
-#RailsEmailPreview.setup do |config|
-#
-#  # hook before rendering preview:
-#  config.before_render do |message, preview_class_name, mailer_action|
-#    # Use roadie-rails:
-#    Roadie::Rails::MailInliner.new(message, message.roadie_options).execute
-#    # Use premailer-rails:
-#    Premailer::Rails::Hook.delivering_email(message)
-#    # Use actionmailer-inline-css:
-#    ActionMailer::InlineCssHook.delivering_email(message)
-#  end
-#
-#  # do not show Send Email button
-#  config.enable_send_email = false
-#
-#  # You can specify a controller for RailsEmailPreview::ApplicationController to inherit from:
-#  config.parent_controller = 'Admin::ApplicationController' # default: '::ApplicationController'
-#end
+RailsEmailPreview.setup do |config|
+
+  # hook before rendering preview:
+  config.before_render do |message, preview_class_name, mailer_action|
+    Roadie::Rails::MailInliner.new(message, message.roadie_options).execute
+  end
+
+  # Only show Send Email button in production
+  config.enable_send_email = Rails.env.production?
+
+  # You can specify a controller for RailsEmailPreview::ApplicationController to inherit from:
+  #  config.parent_controller = 'Admin::ApplicationController' # default: '::ApplicationController'
+end
 
 #= REP + Comfortable Mexican Sofa integration
 #
@@ -28,11 +23,11 @@ require 'rails_email_preview'
 Rails.application.config.to_prepare do
   # Render REP inside a custom layout (set to 'application' to use app layout, default is REP's own layout)
   # This will also make application routes accessible from within REP:
-  # RailsEmailPreview.layout = 'admin'
+  RailsEmailPreview.layout = 'application'
 
   # Set UI locale to something other than :en
   # RailsEmailPreview.locale = :de
 
   # Auto-load preview classes from:
-  RailsEmailPreview.preview_classes = RailsEmailPreview.find_preview_classes('app/mailer_previews')
+  RailsEmailPreview.preview_classes = Thredded::BaseMailerPreview.preview_classes + RailsEmailPreview.find_preview_classes('app/mailer_previews')
 end
