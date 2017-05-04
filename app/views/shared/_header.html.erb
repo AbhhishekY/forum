@@ -1,4 +1,15 @@
-<header role="banner" class="app-header">
+<header role="banner" class="app-header" style=" background-color: transparent">
+  <div style=" background-color: transparent">
+
+
+  <link rel="stylesheet" type="text/css" href="<%= stylesheet_path('cus') %>"/>
+  <link rel="stylesheet" type="text/css" href="<%= stylesheet_path('custom') %>"/>
+  <div class="clearfix" id="u287-6"><!-- content -->
+
+    <h1 id="u287-2">R U</h1>
+    <h1 id="u287-4">O N</h1>
+
+  </div>
   <span class="app-nav-auth">
     <% if current_user %>
         <%= link_to current_user.display_name, user_path(current_user) %>
@@ -9,7 +20,7 @@
         <%= link_to t('nav.sign_in'), main_app.new_user_session_path %>
     <% end %>
   </span>
-  <a class="app-nav-logo" "<%= link_to t('nav.forums'), thredded.root_path %>"><%= t 'brand.name' %></a>
+  <a class="app-nav-logo"><%=link_to t('nav.forums'),thredded.root_path %>><%= t 'brand.name' %></a>
   <div class="app-nav-theme">
     <span class="app-nav-text"><%= t 'nav.theme' %>:</span>
     <ul>
@@ -26,5 +37,6 @@
         <% end -%>
       <% end %>
     </ul>
+  </div>
   </div>
 </header>
